@@ -16,6 +16,7 @@ function productDetailsTemplate(product) {
     <div class="product-detail__add">
       <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
     </div></section>`;
+
 }
 
 export default class ProductDetails {
@@ -44,5 +45,5 @@ export default class ProductDetails {
       "afterBegin",
       productDetailsTemplate(this.product),
     );
-  }
+  };
 }
