@@ -72,3 +72,30 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener("click", callback);
 }
+
+export function alertMessage(message, scroll = true, duration = 3000) {
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
+  alert.innerHTML = '<p>${message}</p><span>X</span>';
+
+  alert.addEventListener("click", function (e) {
+    if(e.target.tagName == "SPAN") {
+      main.removeChild(this);
+    }
+  });
+  const main = document.querySelector("main");
+  main.prepend(alert);
+  // make sure they see the alert by scrolling to the top of the window
+  //we may not always want to do this...so defaultto scroll=true, but allow it to be passed in and overridden.
+  if(scroll) window.scrollTo(0, 0);
+  
+  // how to remove alert automatically after a period of time
+  // setTimeout(function () {
+  //  main.removeChild(alert);
+  //}, duration);
+}
+
+export function removeAllAlerts() {
+  const alerts = document.querySelectorAll(".alert");
+  alerts.forEach((alert) => document.querySelector("main").removeChild(alert));
+}
