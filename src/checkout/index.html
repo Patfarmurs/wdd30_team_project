@@ -8,25 +8,18 @@
 
     <title>Sleep Outside | Checkout</title>
 
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <script src="../js/checkout.js" type="module"></script>
   </head>
   <body>
-    <header class="divider" id="team-header">
-        <a href="index.html">
-          Sleep
-          <span class="highlight">Outside</span>
-        </a>
-      </div>
-    </header>
-
-    <main class="divider">
-      <section class="products">
-        <h2>Review & Place your Order</h2>
-      </section>
-
-      <h2>Order Form</h2>
-      <section>
-        <form id="orderForm" onsubmit="return validateForm()">
+    <header class="divider" id="team-header"></header>
+    <main class="divider checkout">
+      <h2>Review & Place your Order</h2>
+      <section class="checkout-form">
+      <fieldset>
+        <legend>Shipping</legend>
+        <div class="checkout_name">
+          <form name="checkout">
           <label for="firstName">First Name:</label>
           <input
             type="text"
@@ -83,10 +76,10 @@
             name="securityCode"
             required
           /><br /><br />
-
+        </div>
           <button type="submit">Checkout</button>
-        </form>
-      </section>
+      </fieldset>
+      <fieldset class="checkout-summary">
       <legend>Order Summary</legend>
       <ul>
         <li>
@@ -108,8 +101,11 @@
           <p id="orderTotal"></p>
         </li>
       </ul>
+    </fieldset>
+    <button id="checkoutSubmit" type="submit">Checkout</button>
+    </form>
+    </section>
     </main>
-
     <footer id="team-footer">&copy;NOT a real business</footer>
   </body>
 </html>
