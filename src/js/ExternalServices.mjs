@@ -1,12 +1,15 @@
 const baseURL = "http://server-nodejs.cit.byui.edu:3000/";
 
-function convertToJson(res) {
+async function convertToJson(res) {
+  const responseBody = await res.json();
+  
   if (res.ok) {
-    return res.json();
+    return responseBody;
   } else {
-    throw new Error("Bad Response");
+    throw new Error(JSON.stringify(responseBody));
   }
 }
+
 
 export default class ExternalServices {
   constructor(category) {
