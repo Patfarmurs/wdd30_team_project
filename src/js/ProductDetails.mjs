@@ -1,11 +1,11 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { setLocalStorage, getLocalStorage, alertMessage } from "./utils.mjs";
 
 function productDetailsTemplate(product) {
   return `<section class="product-detail"> <h3>${product.Brand.Name}</h3>
     <h2 class="divider">${product.NameWithoutBrand}</h2>
     <img
       class="divider"
-      src="${product.Image}"
+      src="${product.Images.PrimaryLarge}"
       alt="${product.NameWithoutBrand}"
     />
     <p class="product-card__price">$${product.FinalPrice}</p>
@@ -16,7 +16,6 @@ function productDetailsTemplate(product) {
     <div class="product-detail__add">
       <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
     </div></section>`;
-
 }
 
 export default class ProductDetails {
@@ -38,17 +37,20 @@ export default class ProductDetails {
   }
   addToCart() {
     let cartContents = getLocalStorage("so-cart");
+    //check to see if there was anything there
     if (!cartContents) {
       cartContents = [];
     }
+    // then add the current product to the list
     cartContents.push(this.product);
     setLocalStorage("so-cart", cartContents);
+    alertMessage(`${this.product.NameWithoutBrand} added to cart!`);
   }
   renderProductDetails(selector) {
     const element = document.querySelector(selector);
     element.insertAdjacentHTML(
       "afterBegin",
-      productDetailsTemplate(this.product),
+      productDetailsTemplate(this.product)
     );
-  };
+  }
 }

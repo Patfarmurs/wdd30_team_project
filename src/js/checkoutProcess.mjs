@@ -1,4 +1,9 @@
-import { getLocalStorage, setLocalStorage, alertMessage, removeAllAlerts, } from "./utils.mjs";
+import {
+  setLocalStorage,
+  getLocalStorage,
+  alertMessage,
+  removeAllAlerts,
+} from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 
 const services = new ExternalServices();
@@ -42,10 +47,10 @@ export default class CheckoutProcess {
   }
   calculateItemSummary() {
     const summaryElement = document.querySelector(
-      this.outputSelector + " #cartTotal",
+      this.outputSelector + " #cartTotal"
     );
     const itemNumElement = document.querySelector(
-      this.outputSelector + " #num-items",
+      this.outputSelector + " #num-items"
     );
     itemNumElement.innerText = this.list.length;
     // calculate the total of all the items in the cart
@@ -67,7 +72,7 @@ export default class CheckoutProcess {
     const shipping = document.querySelector(this.outputSelector + " #shipping");
     const tax = document.querySelector(this.outputSelector + " #tax");
     const orderTotal = document.querySelector(
-      this.outputSelector + " #orderTotal",
+      this.outputSelector + " #orderTotal"
     );
     shipping.innerText = "$" + this.shipping;
     tax.innerText = "$" + this.tax;
@@ -85,18 +90,18 @@ export default class CheckoutProcess {
     json.items = packageItems(this.list);
     console.log(json);
     try {
-        const res = await services.checkout(json);
-        console.log(res);
-        setLocalStorage("so-cart", []);
-        location.assign("/checkout/success.html");
-      } catch (err) {
-        // get rid of any preexisting alerts.
-        removeAllAlerts();
-        for (let message in err.message) {
-          alertMessage(err.message[message]);
-        }
-  
-        console.log(err);
+      const res = await services.checkout(json);
+      console.log(res);
+      setLocalStorage("so-cart", []);
+      location.assign("/checkout/success.html");
+    } catch (err) {
+      // get rid of any preexisting alerts.
+      removeAllAlerts();
+      for (let message in err.message) {
+        alertMessage(err.message[message]);
       }
+
+      console.log(err);
     }
-  };
+  }
+}

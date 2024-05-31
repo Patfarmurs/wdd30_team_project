@@ -1,15 +1,12 @@
 const baseURL = "http://server-nodejs.cit.byui.edu:3000/";
-
 async function convertToJson(res) {
-  const responseBody = await res.json();
-  
+  const data = await res.json();
   if (res.ok) {
-    return responseBody;
+    return data;
   } else {
-    throw new Error(JSON.stringify(responseBody));
+    throw { name: "servicesError", message: data };
   }
 }
-
 
 export default class ExternalServices {
   constructor(category) {
@@ -26,15 +23,14 @@ export default class ExternalServices {
     const data = await convertToJson(response);
     return data.Result;
   }
-
-  async checkout(json) {
-    const response = await fetch(baseURL + "orders", {
+  async checkout(payload) {
+    const options = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(json),
-    });
-    return response;
+      body: JSON.stringify(payload),
+    };
+    return await fetch(baseURL + "checkout/", options).then(convertToJson);
   }
 }
